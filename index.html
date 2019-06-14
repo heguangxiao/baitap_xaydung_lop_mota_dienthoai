@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="script.js"></script>
+</head>
+<body>
+
+<div id="mApple"></div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<div id="mNokia"></div>
+<br/>
+<br/>
+<br/>
+<br/>
+<div id="mSoan"></div>
+<div id="mNhan"></div>
+<div id="mGui"></div>
+
+<script>
+    let moApple = new Mobile(50,true);
+    let moNokia = new Mobile(-2,false);
+    let showApp = document.getElementById('mApple');
+    let showNoki = document.getElementById('mNokia');
+    let showSoan = document.getElementById('mSoan');
+    let showNhan = document.getElementById('mNhan');
+    let showGui = document.getElementById('mGui');
+
+    function show2Mobile() {
+        let messApp = '<p>Apple</p><br/>';
+        messApp +='<input type="button" value="Soan" onclick="soantinnhan(0);"/>';
+        messApp +='<input type="button" value="Da Nhan" onclick="showMessDaNhan(0)"/>';
+        messApp +='<input type="button" value="Da Gui" onclick="showMessDaGui(0)"/>';
+        showApp.innerHTML = messApp;
+
+        let messNok = '<p>Nokia</p><br/>';
+        messNok +='<input type="button" value="Soan" onclick="soantinnhan(1)"/>';
+        messNok +='<input type="button" value="Da Nhan" onclick="showMessDaNhan(1)"/>';
+        messNok +='<input type="button" value="Da Gui" onclick="showMessDaGui(1)"/>';
+        showNoki.innerHTML = messNok;
+    }
+
+    function showMessDaGui(n) {
+        clearDiv();
+        let messShow = '';
+        let arr;
+        if (n == 0){
+            arr = moApple;
+            messShow +='<p>Apple</p>';
+        } else {
+            arr = moNokia;
+            messShow +='<p>Nokia</p>';
+        }
+
+        messShow += '<table>';
+        for (i = 0; i < arr.messGui.length; i++) {
+            messShow +='<tr><td>'+(i+1)+'</td><td>'+arr.getMessGui(i)+'</td></tr>';
+        }
+
+        messShow +='</table>';
+
+        showGui.innerHTML = messShow;
+    }
+
+    function showMessDaNhan(n) {
+        clearDiv();
+        let messNhan = '';
+        let arr;
+        if (n == 0){
+            arr = moApple;
+            messNhan +='<p>Apple</p>';
+        } else {
+            arr = moNokia;
+            messNhan +='<p>Nokia</p>';
+        }
+        messNhan += '<table>';
+        for (i = 0; i < arr.messNhan.length; i++) {
+            messNhan +='<tr><td>'+(i+1)+'</td><td>'+arr.getMessNhan(i)+'</td></tr>';
+        }
+
+        messNhan +='</table>';
+
+        showNhan.innerHTML = messNhan;
+    }
+
+    function clearDiv() {
+        showSoan.innerHTML = '  ';
+        showNhan.innerHTML = '  ';
+        showGui.innerHTML = '   ';
+    }
+
+    function soantinnhan(n) {
+        clearDiv();
+        let messSoan = '<p>Soan</p><br/><form name="s"><textarea name="t"></textarea><br/>';
+        messSoan+='<input type="button" value="Gui" onclick="guitinnhan('+n+')"/></form>';
+        showSoan.innerHTML = messSoan;
+    }
+
+    function guitinnhan(n) {
+        let mess = document.forms['s']['t'].value;
+        let showMES = ' ';
+        if (mess != ''){
+            if (n == 0) {
+                moApple.setMessNhap(mess);
+                moApple.setMessGui(mess);
+                moNokia.setMessNhan(mess);
+            } else {
+                moNokia.setMessNhap(mess);
+                moNokia.setMessGui(mess);
+                moApple.setMessNhan(mess);
+            }
+        }
+        showSoan.innerHTML = showMES;
+    }
+
+    show2Mobile();
+</script>
+</body>
+</html>
